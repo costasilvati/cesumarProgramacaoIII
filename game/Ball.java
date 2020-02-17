@@ -1,13 +1,12 @@
-package game;
+package bounce;
 
 import java.awt.geom.*;
 
 /**
- * Uma bola que desenvolve movimentos em uma janela
- * @version 1.33 2007-05-17
- * @author Cay Horstmann
+ * Bola e seus movimentos na Janela
  */
-public class Ball{
+public class Ball
+{
    private static final int XSIZE = 15;
    private static final int YSIZE = 15;
    private double x = 0;
@@ -16,31 +15,31 @@ public class Ball{
    private double dy = 1;
 
    /**
-    * Movimenta a bola para a próxima posição, revertendo a diração caso encontre arestas
+    * Move a bola para a próxima posição, revertendo a direção se o canto encontrar o fim da jenala
     */
-   public void mover(Rectangle2D limites){
+   public void move(Rectangle2D bounds){
       x += dx;
       y += dy;
-      if (x < limites.getMinX()){
-         x = limites.getMinX();
+      if (x < bounds.getMinX()){
+         x = bounds.getMinX();
          dx = -dx;
       }
-      if (x + XSIZE >= limites.getMaxX()){
-         x = limites.getMaxX() - XSIZE;
+      if (x + XSIZE >= bounds.getMaxX()){
+         x = bounds.getMaxX() - XSIZE;
          dx = -dx;
       }
-      if (y < limites.getMinY()){
-         y = limites.getMinY();
+      if (y < bounds.getMinY()){
+         y = bounds.getMinY();
          dy = -dy;
       }
-      if (y + YSIZE >= limites.getMaxY()){
-         y = limites.getMaxY() - YSIZE;
+      if (y + YSIZE >= bounds.getMaxY()){
+         y = bounds.getMaxY() - YSIZE;
          dy = -dy;
       }
    }
 
    /**
-    * Obtem o formato da bola em sua posição atual.
+    * Coleta a forma (bola) e sua posição atual
     */
    public Ellipse2D getShape(){
       return new Ellipse2D.Double(x, y, XSIZE, YSIZE);

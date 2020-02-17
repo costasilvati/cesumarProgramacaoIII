@@ -1,17 +1,13 @@
-package game;
+package bounce;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * Exibe uma animação com um elemento gráfico em formato de bola.
- * @version 1.33 2007-05-17
- * @author Cay Horstmann
+ * Exibe uma bola que executa um trajeto aleatório no Frame.
  */
 public class Bounce{
-    
-    
    public static void main(String[] args){
       EventQueue.invokeLater(new Runnable(){
             public void run(){
@@ -24,32 +20,30 @@ public class Bounce{
 }
 
 /**
- * A janela com bola e botões.
+ * O frame with a bola e botões.
  */
 class BounceFrame extends JFrame{
-   private BolaComponente comp;
+   private BallComponent bola;
    public static final int STEPS = 1000;
    public static final int DELAY = 3;
 
    /**
-    * Construção da janela com os componentes para exibição da animação e, botões Jogar e Fechar
+    * Construção do frame com a bola que será exibida e botões de Iniciar a Encerrar
     */
-   public BounceFrame() {
-      setTitle("Jogo");
+   public BounceFrame(){
+      setTitle("Game");
 
-      comp = new BolaComponente();
-      add(comp, BorderLayout.CENTER);
+      bola = new BallComponent();
+      add(bola, BorderLayout.CENTER);
       JPanel buttonPanel = new JPanel();
-      addButton(buttonPanel, "Jogar", new ActionListener(){
+      addButton(buttonPanel, "Iniciar", new ActionListener(){
             public void actionPerformed(ActionEvent event){
                addBall();
             }
          });
 
-      addButton(buttonPanel, "Fechar", new ActionListener()
-         {
-            public void actionPerformed(ActionEvent event)
-            {
+      addButton(buttonPanel, "Fechar", new ActionListener(){
+            public void actionPerformed(ActionEvent event){
                System.exit(0);
             }
          });
@@ -58,31 +52,32 @@ class BounceFrame extends JFrame{
    }
 
    /**
-    * Adiciona o botão ao container.
-    * @param c container
-    * @param titulo título do botão
-    * @param ouvinte o ouvente de ações (action listener)
+    * Adiciona um botão a Janela.
+    * @param c a Janela
+    * @param title o texto do botão
+    * @param listener o ouvinte de ações (ActionListener do botão
     */
-   public void addButton(Container c, String titulo, ActionListener ouvinte){
-      JButton botao = new JButton(titulo);
-      c.add(botao);
-      botao.addActionListener(ouvinte);
+   public void addButton(Container c, String title, ActionListener listener){
+      JButton button = new JButton(title);
+      c.add(button);
+      button.addActionListener(listener);
    }
 
    /**
-    * Aiciona uma bola ao painel e faz ela saltar 1.000 vezes
+    * Adciona uma bola a Janela e faz ela se movimentar 1.000 vezes
     */
    public void addBall(){
       try{
          Ball ball = new Ball();
-         comp.add(ball);
+         bola.add(ball);
 
          for (int i = 1; i <= STEPS; i++){
-            ball.mover(comp.getBounds());
-            comp.paint(comp.getGraphics());
+            ball.move(bola.getBounds());
+            bola.paint(bola.getGraphics());
             Thread.sleep(DELAY);
          }
-      }catch (InterruptedException e){
+      }
+      catch (InterruptedException e){
       }
    }
 }
