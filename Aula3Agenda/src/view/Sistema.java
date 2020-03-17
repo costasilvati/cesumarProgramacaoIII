@@ -12,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import model.Tarefa;
+import model.TarefaDao;
 
 /**
  *
@@ -26,20 +27,35 @@ public class Sistema {
                 + "3 - Editar Tarefa\n"
                 + "4 - Excluir Tarefa\n"
                 + "0 - Sair";
-        //TarefaDao tarefaDao = new TarefaDao("AgendaPU");
+        TarefaDao tarefaDao = new TarefaDao("Aula3AgendaPU");
         String mensagens = "";
         int op = 0;
         do{
             op = Integer.parseInt(JOptionPane.showInputDialog(null,texto));
             switch(op){
                 case 1: 
-                    
+                    Tarefa t = new Tarefa();
+                    t = lerTarefa(t, "");
+                    tarefaDao.inserir(t);
                     break;
                 case 2:
-                    
+                    List<Tarefa> lista = tarefaDao.listar();
+                    mensagens = "";
+                    for(Tarefa tf : lista){
+                       mensagens = mensagens + tf.toString() + "\n";
+                    }
+                    JOptionPane.showMessageDialog(null, mensagens);
                     break;
                 case 3:
-                    
+                    Long idEdit = Long.parseLong(
+                            JOptionPane.showInputDialog(null,
+                            "Digite o ID da Tarefa a ser editada"));
+                    Tarefa editTarefa = tarefaDao.buscar(idEdit);
+                    if (editTarefa != null){
+                        mensagens = "EDITAR TAREFA\n";
+                        editTarefa = lerTarefa(editTarefa, mensagens);
+                        tarefaDao.editar(editTarefa);
+                    }
                     break;
                 case 4: 
                     break;
@@ -54,7 +70,8 @@ public class Sistema {
     
     
     public static Tarefa lerTarefa(Tarefa tarefa, String mensagem){
-        tarefa.setDescricao(JOptionPane.showInputDialog(null, "Digite a descição da tarefa:"));
+        tarefa.setDescricao(JOptionPane.showInputDialog(null, 
+                mensagem + "Digite a descição da tarefa:"));
         int op = JOptionPane.showConfirmDialog(null,"Finalizada?");
         if(op == 0){
             tarefa.setFinalizado(true);

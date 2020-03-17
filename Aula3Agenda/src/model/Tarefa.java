@@ -58,6 +58,14 @@ public class Tarefa {
         this.finalizado = finalizado;
     }
     
-    
+    public String toString() {
+        return "------ " + "Id: " + id + " ----------\n descricao: " + 
+                descricao + "\n finalizado: " + 
+                finalizado + "\n dataFinalizacao: " + 
+                dataFinalizado.get(Calendar.DAY_OF_MONTH)+
+                "/" +dataFinalizado.get(Calendar.MONTH) +
+                "/"+dataFinalizado.get(Calendar.YEAR);
+    }
+
     
 }
