@@ -20,21 +20,17 @@ public class HibernateUtil {
             = buildSessionFactory();
 
     private static SessionFactory buildSessionFactory() {
-        try {
-            Configuration conf = new Configuration();
-            conf.configure("hibernate.cfg.xml");
 
-            StandardServiceRegistryBuilder serviceRegist
-                    = new StandardServiceRegistryBuilder();
-            serviceRegist.applySettings(conf.getProperties());
+        Configuration conf = new Configuration();
+        conf.configure("hibernate.cfg.xml");
 
-            StandardServiceRegistry service = serviceRegist.build();
-            return conf.buildSessionFactory(service);
+        StandardServiceRegistryBuilder serviceRegist
+                = new StandardServiceRegistryBuilder();
+        serviceRegist.applySettings(conf.getProperties());
 
-        } catch (Throwable e) {
-            System.out.println("Criação de SessionFactory Falhou!\n" + e);
-            throw new ExceptionInInitializerError(e);
-        }
+        StandardServiceRegistry service = serviceRegist.build();
+        return conf.buildSessionFactory(service);
+
     }
 
     public static SessionFactory getSessionFactory() {
