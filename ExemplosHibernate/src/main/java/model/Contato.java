@@ -9,11 +9,14 @@ package model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -23,6 +26,7 @@ import javax.persistence.Id;
 public class Contato implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="cod_contato")
     private Integer codigo;
     @Column(length=50, nullable=true)
     private String nome;
@@ -34,6 +38,11 @@ public class Contato implements Serializable{
     private Date data_cadastro;
     @Column(nullable=true)
     private String observacao;
+    @ManyToOne
+    @JoinColumn(name="cod_cliente")
+    private Cliente cliente;
+    
+    
 
     public Integer getCodigo() {
         return codigo;
@@ -81,6 +90,55 @@ public class Contato implements Serializable{
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.codigo);
+        hash = 47 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Contato other = (Contato) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.fone, other.fone)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.observacao, other.observacao)) {
+            return false;
+        }
+        if (!Objects.equals(this.codigo, other.codigo)) {
+            return false;
+        }
+        if (!Objects.equals(this.data_cadastro, other.data_cadastro)) {
+            return false;
+        }
+        return true;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
     
