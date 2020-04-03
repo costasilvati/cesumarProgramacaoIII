@@ -28,7 +28,7 @@ public class HibernateConnect {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transacao = session.beginTransaction();
         System.out.println("Conectou!");
-
+        // Cadastra Cliente
         ClienteDao clienteDao = new ClienteDao(session);
         Cliente cliente = new Cliente();
         cliente.setNome("Juliana");
@@ -36,15 +36,20 @@ public class HibernateConnect {
         cliente.setCpf("000000000");
         cliente.setData_cadastro(new Date(System.currentTimeMillis()));
         clienteDao.salvar(cliente);
+        //Cadastra Contato
+        ContatoDao contatoDao = new ContatoDao(session);
+        Contato contato = new Contato();
+        contato.setCliente(cliente);
+        contato.setNome("comercial");
+        contato.setData_cadastro(new Date(System.currentTimeMillis()));
+        contato.setEmail("email@email.com");
+        contato.setFone("232323232");  
+        contatoDao.salvar(contato);
         
-        
-        
-
         transacao.commit();
         System.out.println("Total de registros " + clienteDao.listar().size());
         session.close();
         System.exit(0);
-        
     }
 
 }
