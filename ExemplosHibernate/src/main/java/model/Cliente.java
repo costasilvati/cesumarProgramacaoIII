@@ -84,6 +84,20 @@ public class Cliente implements Serializable{
     public void setContatos(List<Contato> contatos) {
         this.contatos = contatos;
     }
+
+    @Override
+    public String toString() {
+         String contatoTodos = "Cliente " + codigo + 
+                "\n nome: " + nome + 
+                "\n sobrenome: " + sobrenome + 
+                "\n data_cadastro: " + data_cadastro + 
+                "\n cpf: " + cpf + 
+                "\n contatos: \n";
+         for(Contato c:contatos){
+             contatoTodos = contatoTodos + c.toString();
+         }
+                return contatoTodos;
+    }
     
     
 }

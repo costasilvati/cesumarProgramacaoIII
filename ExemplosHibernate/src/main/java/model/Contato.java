@@ -140,6 +140,16 @@ public class Contato implements Serializable{
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    @Override
+    public String toString() {
+        return "Contato " + codigo + 
+                "\n nome: \t" + nome + 
+                "\n fone: \t" + fone + 
+                "\n email: \t" + email + 
+                "\n data_cadastro: \t" + data_cadastro + 
+                "\n observacao: \t" + observacao;
+    }
     
     
     
