@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,6 +26,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="cliente")
+// Uma consulta
+@NamedQuery(name="findAll", query= "select c from Cliente c")
 public class Cliente implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
