@@ -1,9 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.cesumar.eventosweb.util;
+
+import com.cesumar.eventosweb.usuario.UsuarioDAO;
+import com.cesumar.eventosweb.usuario.UsuarioDAOHibernate;
 
 /**
  *
@@ -11,4 +10,11 @@ package com.cesumar.eventosweb.util;
  */
 public class DAOFactory {
     
+     public static UsuarioDAO criarUsuarioDAO(){
+        UsuarioDAOHibernate usuarioDAO = new UsuarioDAOHibernate();
+        usuarioDAO.setSession(
+                HibernateUtil.getSessionFactory().getCurrentSession());
+        return usuarioDAO;
+    }        
+            
 }
